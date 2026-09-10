@@ -1,0 +1,372 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{univesp_relatorio_mensal}
+
+% ------------------------------------------------------------
+% Packages
+% ------------------------------------------------------------
+
+\RequirePackage[brazilian]{babel}
+\RequirePackage[
+    a4paper,
+    left=2.54cm,
+    right=2.54cm,
+    top=1.27cm,
+    bottom=1.27cm
+]{geometry}
+
+\RequirePackage{graphicx}
+\RequirePackage{array}
+\RequirePackage{xcolor}
+\RequirePackage{fontspec}
+\RequirePackage[normalem]{ulem}
+\RequirePackage[most]{tcolorbox}
+
+
+% ------------------------------------------------------------
+% Fonts
+% ------------------------------------------------------------
+
+\setmainfont{Aptos}
+\newfontfamily\trebuchet{Trebuchet MS}
+
+% ------------------------------------------------------------
+% Colors
+% ------------------------------------------------------------
+
+\definecolor{univespred}{HTML}{C00000}
+
+
+% ------------------------------------------------------------
+% Formatting
+% ------------------------------------------------------------
+
+\renewcommand{\ULthickness}{0.6pt}
+\setlength{\arrayrulewidth}{0.7pt}
+\renewcommand{\arraystretch}{1.3}
+
+
+% ------------------------------------------------------------
+% Report data
+% ------------------------------------------------------------
+
+\newcommand{\univespperiodo}{}
+\newcommand{\univespnome}{}
+\newcommand{\univespsupervisor}{}
+
+
+% ------------------------------------------------------------
+% Activity selection
+% ------------------------------------------------------------
+
+% Default: nothing selected
+
+\newcommand{\univespatividade}{%
+    \univespregular \newline
+    \univespestruturante \newline
+    \univespprojetointegrador \newline
+    \univesptcc \newline
+    \univespestagio \newline
+    \univespoutro
+}
+
+
+% Unselected activities
+
+\newcommand{\univespregular}{%
+    ( \phantom{X} ) Mediação de disciplina regular/satélite 
+}
+
+\newcommand{\univespestruturante}{%
+    ( \phantom{X} ) Mediação de disciplina estruturante (novo modelo)
+}
+
+\newcommand{\univespprojetointegrador}{%
+    ( \phantom{X} ) Orientação do Projeto Integrador
+}
+
+\newcommand{\univesptcc}{%
+    ( \phantom{X} ) Orientação de TCC
+}
+
+\newcommand{\univespestagio}{%
+    ( \phantom{X} ) Avaliação e validação de relatórios de estágio
+}
+
+\newcommand{\univespoutro}{%
+    ( \phantom{X} ) Outro. Qual? \rule{5.5cm}{0.5pt}
+}
+
+
+% Selection commands
+
+\newcommand{\disciplinaRegular}{%
+    \renewcommand{\univespregular}{%
+        ( X ) Mediação de disciplina regular/satélite
+    }%
+}
+
+\newcommand{\disciplinaEstruturante}{%
+    \renewcommand{\univespestruturante}{%
+        ( X ) Mediação de disciplina estruturante (novo modelo)
+    }%
+}
+
+\newcommand{\projetoIntegrador}{%
+    \renewcommand{\univespprojetointegrador}{%
+        ( X ) Orientação do Projeto Integrador
+    }%
+}
+
+\newcommand{\TCC}{%
+    \renewcommand{\univesptcc}{%
+        ( X ) Orientação de TCC
+    }%
+}
+
+\newcommand{\avaliacaoEstagio}{%
+    \renewcommand{\univespestagio}{%
+        ( X ) Avaliação e validação de relatórios de estágio
+    }%
+}
+
+\newcommand{\outro}[1]{%
+    \renewcommand{\univespoutro}{%
+        ( X ) Outro. Qual? \underline{#1}
+    }%
+}
+
+
+% ------------------------------------------------------------
+% User-facing data commands
+% ------------------------------------------------------------
+
+\newcommand{\periodoDoRelatorio}[1]{%
+    \renewcommand{\univespperiodo}{#1}%
+}
+
+\newcommand{\nome}[1]{%
+    \renewcommand{\univespnome}{#1}%
+}
+
+\newcommand{\supervisor}[1]{%
+    \renewcommand{\univespsupervisor}{#1}%
+}
+
+\newcommand{\atividadePratica}[1]{%
+    #1%
+}
+
+
+% ------------------------------------------------------------
+% Header
+% ------------------------------------------------------------
+
+\newcommand{\univespheader}{%
+    \noindent
+    \includegraphics[width=4.93cm]{./logo.png}
+
+    \begin{center}
+        \trebuchet
+        \color{univespred}
+        \fontsize{11}{13.2}\selectfont
+        \textbf{\uline{
+            Modelo para Elaboração de Relatório de Atividades
+            do(a) Facilitador(a) UNIVESP
+        }}
+    \end{center}
+}
+
+
+% ------------------------------------------------------------
+% Identification table
+% ------------------------------------------------------------
+
+\newcommand{\univespidentificacao}{%
+    \vspace{-0.5cm}
+
+    \begin{center}
+
+    \renewcommand{\arraystretch}{1.3}
+
+    \begin{tabular}{
+        |>{\centering\arraybackslash\bfseries}m{4.8cm}
+        |m{10.2cm}|
+    }
+
+    \hline
+
+    Período do relatório &
+    \univespperiodo
+    \\
+
+    \hline
+
+    Nome do(a) facilitador(a) &
+    \univespnome
+    \\
+
+    \hline
+
+    Atividade Prática &
+    \univespatividade
+    \\
+
+    \hline
+
+    Supervisor(a) &
+    \univespsupervisor
+    \\
+
+    \hline
+
+    \end{tabular}
+
+    \end{center}
+}
+
+
+% ------------------------------------------------------------
+% Question rule
+% ------------------------------------------------------------
+
+\newcommand{\questionrule}{%
+    \par
+    \noindent
+    \makebox[\linewidth][l]{%
+        \hspace*{-7pt}%
+        \rule{\dimexpr\linewidth+14pt\relax}{0.7pt}%
+    }%
+    \par
+}
+
+% ------------------------------------------------------------
+% Perguntas
+% ------------------------------------------------------------
+\newcommand{\univesprespostaUm}{}
+\newcommand{\univesprespostaDois}{}
+\newcommand{\univesprespostaTres}{}
+\newcommand{\univesprespostaQuatro}{}
+\newcommand{\univespcomentarios}{}
+
+\newcommand{\respostaUm}[1]{%
+    \renewcommand{\univesprespostaUm}{#1}%
+}
+
+\newcommand{\respostaDois}[1]{%
+    \renewcommand{\univesprespostaDois}{#1}%
+}
+
+\newcommand{\respostaTres}[1]{%
+    \renewcommand{\univesprespostaTres}{#1}%
+}
+
+\newcommand{\respostaQuatro}[1]{%
+    \renewcommand{\univesprespostaQuatro}{#1}%
+}
+
+\newcommand{\comentarios}[1]{%
+    \renewcommand{\univespcomentarios}{#1}%
+}
+
+\newcommand{\univespperguntas}{%
+
+\begin{tcolorbox}[
+    enhanced,
+    breakable,
+    boxrule=0.7pt,
+    sharp corners,
+    colback=white,
+    colframe=black,
+    left=4pt,
+    right=4pt,
+    top=4pt,
+    bottom=4pt,
+]
+
+\textbf{1. Descreva brevemente as atividades práticas que você desempenhou no último mês (mediação das disciplinas regulares/satélites; disciplinas estruturantes - novo modelo; orientação de Projeto Integrador; orientação de TCC; validação de relatório de estágio etc.) e registre as contribuições delas para a sua formação.}
+
+% \newline
+\textit{\footnotesize
+Caso você ainda não tenha sido alocado em uma disciplina/projeto de atividade prática, relate e reflita sobre as comunicações e treinamentos oferecidos pela Equipe de Mediação.
+}
+
+\vspace{-0.3cm}
+ \questionrule
+
+\univesprespostaUm
+
+\questionrule
+
+
+\textbf{2. Como você avalia sua atuação nas atividades práticas neste último mês?}
+
+% \newline
+\textit{\footnotesize
+Faça uma autoavaliação de sua assiduidade no AVA, de sua participação
+nas reuniões com o supervisor, de seu entendimento das propostas e
+encaminhamentos institucionais, de como você colaborou para o
+acolhimento dos alunos e como forneceu respostas às dúvidas
+apresentadas pelas turmas (lives, reuniões, fóruns), e do cumprimento
+dos prazos das avaliações sob a sua responsabilidade.
+}
+
+\vspace{-0.3cm}
+\questionrule
+
+\univesprespostaDois
+
+\questionrule
+
+
+\textbf{3. Como você avalia sua participação na disciplina teórica neste último mês?}
+
+% \newline
+\textit{\footnotesize
+Faça uma autoavaliação reflexiva de seu aproveitamento das leituras e exercícios propostos na disciplina teórica que está cursando neste trimestre.
+}
+
+\vspace{-0.3cm}
+\questionrule
+
+\univesprespostaTres
+
+\questionrule
+
+
+\textbf{4. De que forma você relaciona as atividades práticas desempenhadas com o conteúdo que você estudou/está estudando na disciplina teórica?}
+
+% \newline
+\textit{\footnotesize
+Reflita sobre os processos e recursos utilizados na educação a distância para a interação com os alunos, supervisão de mediação e entre colegas.
+}
+
+\vspace{-0.3cm}
+\questionrule
+
+\univesprespostaQuatro
+
+\questionrule
+
+
+\textbf{(OPCIONAL) Comentários, críticas e/ou sugestões:}
+
+\vspace{-0.3cm}
+\questionrule
+
+\univespcomentarios
+
+
+\end{tcolorbox}
+
+}
+
+
+% ------------------------------------------------------------
+% Start document
+% ------------------------------------------------------------
+
+\AtBeginDocument{%
+    \univespheader
+    \univespidentificacao
+    \univespperguntas
+}
